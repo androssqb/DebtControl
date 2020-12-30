@@ -1,0 +1,20 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.DebtControl" parent="Theme.MaterialComponents.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/very_dark_gray</item>
+        <item name="colorPrimaryVariant">@color/very_dark_gray</item>
+        <item name="colorOnPrimary">@color/very_light_gray_mostly_white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/white</item>
+        <item name="colorSecondaryVariant">@color/very_light_gray_mostly_white</item>
+        <item name="colorOnSecondary">@color/very_dark_gray</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+        <item name="android:colorBackground">@color/very_dark_gray_mostly_black</item>
+        <item name="editTextStyle">@style/EditTextStyle</item>
+        <item name="android:datePickerDialogTheme">@style/DatePickerDialogStyle</item>
+        <item name="android:alertDialogTheme">@style/AlertDialogStyle</item>
+    </style>
+</resources>

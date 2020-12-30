@@ -1,0 +1,51 @@
+<resources>
+    <string name="app_name">Debt Control</string>
+    <!--    DebtListFragment-->
+    <string name="first_tab_text">МНЕ ДОЛЖНЫ</string>
+    <string name="second_tab_text">Я ДОЛЖЕН</string>
+    <string name="title">DEBT LIST</string>
+    <string name="settings">settings</string>
+
+    <!--    SettingsFragment-->
+    <string name="policy">ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ</string>
+    <string name="about">О ПРИЛОЖЕНИИ</string>
+    <string name="rate">ОЦЕНИТЬ ПРИЛОЖЕНИЕ</string>
+    <string name="share">ПОДЕЛИТЬСЯ С ДРУЗЬЯМИ</string>
+    <string name="settings_title">НАСТРОЙКИ</string>
+
+    <!--    AddCardFragment-->
+    <string name="i_give">Я ДАЮ</string>
+    <string name="i_take">Я БЕРУ</string>
+    <string name="name_hint">Имя</string>
+    <string name="sum_hint">Сумма</string>
+    <string name="comment_hint">Комментарий</string>
+    <string name="date_title">планируемая дата возврата</string>
+    <string name="toast">Введите имя, сумму, оставте комментарий и измените дату</string>
+    <!--    Currency-->
+    <string-array name="currency">
+        <item>RUB</item>
+        <item>USD</item>
+        <item>EUR</item>
+    </string-array>
+
+    <!--        Debt card-->
+    <string name="repayment_date">дата возврата</string>
+
+    <!--    DebtDetailFragment-->
+    <string name="minus_desc">УМЕНЬШЕНИЕ</string>
+    <string name="plus_desc">УВЕЛИЧЕНИЕ</string>
+    <string name="history_header">история платежей</string>
+    <!--    DebtDetailsDialog-->
+    <string name="dialog_message">Вы уверены, что хотите удалить эту запись?</string>
+    <string name="dialog_yes">Да</string>
+    <string name="dialog_no">Нет</string>
+
+    <!--    ChangeDebtFragment-->
+    <string name="change_date_title">дата возврата</string>
+    <string name="took">Взял</string>
+    <string name="returned">Вернул</string>
+    <string name="toast_change">Введите сумму и оставте комментарий</string>
+    <string name="increase_in_debt">УВЕЛИЧЕНИЕ ДОЛГА</string>
+    <string name="debt_reduction">УМЕНЬШЕНИЕ ДОЛГА</string>
+    <string name="error_text">Вернули больше, чем занимали.</string>
+</resources>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="debtHistory"
+            type="com.example.debtcontrol.database.DebtHistory" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16"
+        android:layout_marginVertical="@dimen/margin_8"
+        android:background="@android:color/transparent"
+        app:cardCornerRadius="@dimen/margin_8">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?colorPrimary">
+
+            <ImageView
+                android:id="@+id/colored_back"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:importantForAccessibility="no"
+                app:background="@{debtHistory}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/guideline"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_debt_history_gradient_first" />
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:importantForAccessibility="no"
+                app:icon="@{debtHistory}"
+                app:layout_constraintBottom_toBottomOf="@id/colored_back"
+                app:layout_constraintEnd_toEndOf="@id/colored_back"
+                app:layout_constraintStart_toStartOf="@id/colored_back"
+                app:layout_constraintTop_toTopOf="@id/colored_back"
+                tools:src="@drawable/ic_plus_white" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="36dp" />
+
+            <TextView
+                android:id="@+id/took"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_16"
+                android:fontFamily="@font/chenla_regular"
+                android:textColor="@color/very_light_gray_mostly_white"
+                android:textSize="@dimen/text_18"
+                app:action="@{debtHistory}"
+                app:layout_constraintStart_toEndOf="@id/guideline"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Взял" />
+
+            <TextView
+                android:id="@+id/comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_5"
+                android:layout_marginBottom="@dimen/margin_14"
+                android:fontFamily="@font/chenla_regular"
+                android:textColor="@color/very_light_gray_2"
+                android:textSize="@dimen/text_13"
+                app:comment="@{debtHistory}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideline"
+                app:layout_constraintTop_toBottomOf="@id/took"
+                tools:text="Вернул раньше, но..." />
+
+            <TextView
+                android:id="@+id/sum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/chenla_regular"
+                android:textColor="@color/soft_yellow"
+                android:textSize="@dimen/text_24"
+                app:layout_constraintBottom_toBottomOf="@id/took"
+                app:layout_constraintEnd_toStartOf="@id/currency"
+                app:layout_constraintTop_toTopOf="@id/took"
+                app:sumHistory="@{debtHistory}"
+                tools:text="15560" />
+
+            <ImageView
+                android:id="@+id/currency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_8"
+                android:layout_marginBottom="3dp"
+                android:importantForAccessibility="no"
+                app:currencyHistory="@{debtHistory}"
+                app:layout_constraintBottom_toBottomOf="@id/sum"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/sum"
+                tools:src="@drawable/ic__rub" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_8"
+                android:fontFamily="@font/chenla_regular"
+                android:textColor="@color/very_light_gray_2"
+                android:textSize="@dimen/text_13"
+                app:date="@{debtHistory}"
+                app:layout_constraintBottom_toBottomOf="@id/comment"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/comment"
+                tools:text="18 августа 2020" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

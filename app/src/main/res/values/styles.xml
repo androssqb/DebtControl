@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CustomTabLayoutText" parent="TextAppearance.MaterialComponents.Button">
+        <item name="android:textSize">@dimen/text_16</item>
+        <item name="fontFamily">@font/bebas_neue_regular</item>
+    </style>
+
+    <style name="DebtListCustomTitle">
+        <item name="android:fontFamily">@font/cheque_regular</item>
+        <item name="android:textSize">@dimen/text_20</item>
+    </style>
+
+    <style name="SettingsCustomTitle">
+        <item name="android:fontFamily">@font/bebas_neue_regular</item>
+        <item name="android:textSize">@dimen/text_20</item>
+    </style>
+
+    <style name="SwitchTextView">
+        <item name="fontFamily">@font/bebas_neue_regular</item>
+        <item name="android:textSize">@dimen/text_18</item>
+    </style>
+
+    <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:textColor">?colorOnPrimary</item>
+        <item name="android:textColorHint">@color/very_light_gray_2</item>
+        <item name="backgroundTint">?colorOnPrimary</item>
+    </style>
+
+    <style name="DatePickerDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/pure_orange</item>
+        <item name="colorOnPrimary">@color/pure_orange</item>
+        <item name="android:textColorPrimary">@color/very_dark_gray_2</item>
+    </style>
+
+    <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorOnPrimary">@color/pure_orange</item>
+    </style>
+
+</resources>

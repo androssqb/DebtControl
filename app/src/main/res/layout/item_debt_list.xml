@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="debt"
+            type="com.example.debtcontrol.database.Debt" />
+
+        <variable
+            name="clickListener"
+            type="com.example.debtcontrol.mydebtors.adapter.DebtListener" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16"
+        android:layout_marginVertical="@dimen/margin_8"
+        app:cardCornerRadius="@dimen/margin_8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/card_background"
+            android:onClick="@{() -> clickListener.onClick(debt)}"
+            android:padding="@dimen/margin_16">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bebas_neue_regular"
+                android:textColor="@color/very_light_gray_mostly_white"
+                android:textSize="@dimen/text_18"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:name="@{debt}"
+                tools:text="АРКАДИЙ" />
+
+            <TextView
+                android:id="@+id/sum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_5"
+                android:fontFamily="@font/cheque_regular"
+                android:textColor="@color/soft_yellow"
+                android:textSize="@dimen/text_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/name"
+                app:sum="@{debt}"
+                tools:text="15 340" />
+
+            <ImageView
+                android:id="@+id/currency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:importantForAccessibility="no"
+                app:currency="@{debt}"
+                app:layout_constraintBottom_toBottomOf="@id/sum"
+                app:layout_constraintStart_toEndOf="@id/sum"
+                app:layout_constraintTop_toTopOf="@id/sum"
+                tools:src="@drawable/ic__rub" />
+
+            <TextView
+                android:id="@+id/repayment_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/chenla_regular"
+                android:textColor="@color/very_light_gray_2"
+                android:textSize="@dimen/text_14"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:repaymentDate="@{debt}"
+                tools:text="9 сентября 2020" />
+
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/chenla_regular"
+                android:text="@string/repayment_date"
+                android:textColor="@color/very_light_gray_2"
+                android:textSize="@dimen/text_12"
+                app:layout_constraintBottom_toBottomOf="@id/repayment_date"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/repayment_date" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

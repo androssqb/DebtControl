@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#F8CA991A">
+    <item android:id="@android:id/mask">
+        <shape android:shape="oval">
+            <solid android:color="#F8CA991A" />
+            <size
+                android:width="40dp"
+                android:height="40dp" />
+        </shape>
+    </item>
+
+    <item
+        android:drawable="@drawable/ic_fab_plus">
+    </item>
+</ripple>

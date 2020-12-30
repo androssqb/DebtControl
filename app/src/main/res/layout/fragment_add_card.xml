@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="addCardViewModel"
+            type="com.example.debtcontrol.addcard.viewmodel.AddCardViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".addcard.AddCardFragment">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?colorPrimary"
+                app:navigationIcon="@drawable/ic_close" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <TextView
+            android:id="@+id/give_tV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/i_give"
+            android:textAppearance="@style/SwitchTextView"
+            android:textColor="@color/very_light_gray_mostly_white"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/switch_material"
+            app:layout_constraintEnd_toStartOf="@id/switch_material"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/switch_material" />
+
+        <TextView
+            android:id="@+id/give_tV_second"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/i_give"
+            android:textAppearance="@style/SwitchTextView"
+            android:textColor="@color/bright_orange"
+            app:layout_constraintBottom_toBottomOf="@id/switch_material"
+            app:layout_constraintEnd_toStartOf="@id/switch_material"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/switch_material" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_material"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_24"
+            android:thumb="@drawable/switch_thumb"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appbar"
+            app:track="@drawable/switch_track" />
+
+        <TextView
+            android:id="@+id/get_tV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/i_take"
+            android:textAppearance="@style/SwitchTextView"
+            android:textColor="@color/very_light_gray_mostly_white"
+            app:layout_constraintBottom_toBottomOf="@id/switch_material"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/switch_material"
+            app:layout_constraintTop_toTopOf="@id/switch_material" />
+
+        <TextView
+            android:id="@+id/get_tV_second"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/i_take"
+            android:textAppearance="@style/SwitchTextView"
+            android:textColor="@color/very_light_gray_mostly_white"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/switch_material"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/switch_material"
+            app:layout_constraintTop_toTopOf="@id/switch_material" />
+
+        <EditText
+            android:id="@+id/name_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_24"
+            android:layout_marginTop="@dimen/margin_32"
+            android:layout_marginEnd="@dimen/margin_24"
+            android:hint="@string/name_hint"
+            android:inputType="textCapCharacters"
+            android:maxLength="25"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/switch_material"
+            tools:ignore="Autofill" />
+
+        <EditText
+            android:id="@+id/sum_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_24"
+            android:layout_marginTop="@dimen/margin_40"
+            android:layout_marginEnd="@dimen/margin_24"
+            android:hint="@string/sum_hint"
+            android:inputType="number"
+            android:maxLength="14"
+            app:layout_constraintEnd_toStartOf="@id/spinner_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/name_input"
+            tools:ignore="Autofill" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/spinner_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="128dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_16"
+            app:boxBackgroundColor="?colorPrimary"
+            app:boxCornerRadiusBottomEnd="@dimen/margin_8"
+            app:boxCornerRadiusBottomStart="@dimen/margin_8"
+            app:boxCornerRadiusTopEnd="@dimen/margin_8"
+            app:boxCornerRadiusTopStart="@dimen/margin_8"
+            app:boxStrokeColor="?colorPrimary"
+            app:endIconTint="?colorOnPrimary"
+            app:layout_constraintBottom_toBottomOf="@id/sum_input"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/sum_input">
+
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?colorPrimary"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:imeOptions=""
+                android:inputType="none"
+                android:textColor="@color/bright_orange">
+
+            </com.google.android.material.textfield.MaterialAutoCompleteTextView>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <EditText
+            android:id="@+id/comment_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_24"
+            android:layout_marginTop="@dimen/margin_40"
+            android:layout_marginEnd="@dimen/margin_24"
+            android:hint="@string/comment_hint"
+            android:inputType="textCapSentences"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sum_input"
+            tools:ignore="Autofill" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_4"
+            android:fontFamily="@font/chenla_regular"
+            android:text="@string/date_title"
+            android:textColor="@color/very_light_gray_2"
+            android:textSize="@dimen/text_14"
+            app:layout_constraintBottom_toTopOf="@id/date"
+            app:layout_constraintEnd_toEndOf="@id/date"
+            app:layout_constraintStart_toStartOf="@id/calendar" />
+
+        <ImageView
+            android:id="@+id/calendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_8"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_calendar"
+            app:layout_constraintBottom_toBottomOf="@id/date"
+            app:layout_constraintEnd_toStartOf="@+id/date"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/date" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_24"
+            android:background="?attr/selectableItemBackground"
+            android:fontFamily="@font/bebas_neue_regular"
+            android:onClick="@{() -> addCardViewModel.startDatePikerDialog()}"
+            android:text="@{String.valueOf(addCardViewModel.repaymentDate)}"
+            android:textAllCaps="true"
+            android:textColor="@color/bright_orange"
+            android:textSize="@dimen/text_32"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/calendar"
+            tools:text="20 сентября 2020" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
