@@ -4,6 +4,8 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Shader
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.annotation.StringRes
 
@@ -14,6 +16,9 @@ object Constants {
     private const val STRONG_ORANGE: String = "#FFCA991A"
 
     lateinit var toast: Toast
+
+    const val POLICY: String = "https://debt-control.flycricket.io/privacy.html"
+    const val ABOUT: String = "https://debt-control.flycricket.io/terms.html"
 
     fun setGradient(textSize: Float): LinearGradient {
 
@@ -32,5 +37,11 @@ object Constants {
         }
         toast = Toast.makeText(context, context.getString(stringId), Toast.LENGTH_SHORT)
         toast.show()
+    }
+
+    fun closeKeyboard(view: View) {
+        val inputMethodManager =
+                view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }

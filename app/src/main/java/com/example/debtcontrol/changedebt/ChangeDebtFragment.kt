@@ -1,12 +1,8 @@
 package com.example.debtcontrol.changedebt
 
 import android.app.DatePickerDialog
-import android.content.Context
 import android.os.Bundle
 import android.view.*
-import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
@@ -27,7 +23,6 @@ class ChangeDebtFragment : Fragment() {
 
     private lateinit var binding: FragmentChangeDebtBinding
     private lateinit var changeDebtViewModel: ChangeDebtViewModel
-    private lateinit var toast: Toast
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -37,7 +32,7 @@ class ChangeDebtFragment : Fragment() {
         (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar)
         binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
-            closeKeyboard(it)
+            Constants.closeKeyboard(it)
         }
 
         val application = requireNotNull(this.activity).application
@@ -56,7 +51,7 @@ class ChangeDebtFragment : Fragment() {
         setHasOptionsMenu(true)
 
         binding.constLayout.setOnClickListener {
-            closeKeyboard(it)
+            Constants.closeKeyboard(it)
         }
 
         changeDebtViewModel.isDatePickerDialogShowing.observe(viewLifecycleOwner, {
@@ -128,16 +123,11 @@ class ChangeDebtFragment : Fragment() {
                         changeDebtViewModel.navigateToDebtDetails()
                     }
                 }
-                closeKeyboard(requireView())
+                Constants.closeKeyboard(requireView())
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    private fun closeKeyboard(view: View) {
-        val inputMethodManager = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     private fun showDatePikerDialog() {
@@ -160,11 +150,12 @@ class ChangeDebtFragment : Fragment() {
         display.show()
     }
 
-    private fun showToast(@StringRes stringId: Int) {
-        if (this::toast.isInitialized) {
-            toast.cancel()
+    override fun onResume() {
+        if (changeDebtViewModel.took.value!!) {
+            binding.toolbar.title = getString(R.string.increase_in_debt)
+        } else {
+            binding.toolbar.title = getString(R.string.debt_reduction)
         }
-        toast = Toast.makeText(requireContext(), getString(stringId), Toast.LENGTH_LONG)
-        toast.show()
+        super.onResume()
     }
 }

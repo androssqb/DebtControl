@@ -135,6 +135,4 @@ class ChangeDebtViewModel(
             database.update(newDebt)
         }
     }
-
-
 }

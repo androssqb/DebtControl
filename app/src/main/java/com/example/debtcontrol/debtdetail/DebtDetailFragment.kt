@@ -138,4 +138,9 @@ class DebtDetailFragment : Fragment() {
         binding.fabPlus.backgroundTintList = null
         binding.fabPlus.setBackgroundResource(R.drawable.fab_plus_ripple)
     }
+
+    override fun onResume() {
+        binding.toolbar.title = debtDetailViewModel.getDebt().value?.name //?:"Unknown name"
+        super.onResume()
+    }
 }

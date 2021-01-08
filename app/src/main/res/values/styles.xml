@@ -16,6 +16,10 @@
         <item name="android:textSize">@dimen/text_20</item>
     </style>
 
+    <style name="DebtDetailTitle" parent="SettingsCustomTitle">
+        <item name="textAllCaps">true</item>
+    </style>
+
     <style name="SwitchTextView">
         <item name="fontFamily">@font/bebas_neue_regular</item>
         <item name="android:textSize">@dimen/text_18</item>

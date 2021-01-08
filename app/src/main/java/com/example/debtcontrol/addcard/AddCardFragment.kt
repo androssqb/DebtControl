@@ -1,10 +1,8 @@
 package com.example.debtcontrol.addcard
 
 import android.app.DatePickerDialog
-import android.content.Context
 import android.os.Bundle
 import android.view.*
-import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +20,6 @@ import com.example.debtcontrol.addcard.viewmodel.AddCardViewModelFactory
 import com.example.debtcontrol.database.DebtDatabase
 import com.example.debtcontrol.database.DebtHistoryDatabase
 import com.example.debtcontrol.databinding.FragmentAddCardBinding
-import java.text.SimpleDateFormat
 import java.util.*
 
 class AddCardFragment : Fragment() {
@@ -46,8 +43,9 @@ class AddCardFragment : Fragment() {
         val application = requireNotNull(this.activity).application
         val dataSource = DebtDatabase.getInstance(application).debtDatabaseDao
         val dataSourceHistory = DebtHistoryDatabase.getInstance(application).debtHistoryDatabaseDao
+        val arguments = AddCardFragmentArgs.fromBundle(requireArguments())
 
-        val viewModelFactory = AddCardViewModelFactory(dataSource, dataSourceHistory, application)
+        val viewModelFactory = AddCardViewModelFactory(arguments.page, dataSource, dataSourceHistory, application)
         addCardViewModel =
                 ViewModelProvider(this, viewModelFactory)
                         .get(AddCardViewModel::class.java)
@@ -62,22 +60,30 @@ class AddCardFragment : Fragment() {
         binding.spinner.setText(resources.getStringArray(R.array.currency)[0])
         binding.spinner.paint.shader = Constants.setGradient(binding.spinner.textSize)
         binding.spinner.setOnClickListener {
-            closeKeyboard(it)
+            Constants.closeKeyboard(it)
         }
 
-        binding.switchMaterial.setOnCheckedChangeListener { buttonView, isChecked ->
-            closeKeyboard(buttonView)
-            if (isChecked) {
+        binding.switchMaterial.isChecked  = addCardViewModel.setSwitchPosition(arguments.page)
+
+        addCardViewModel.isChecked.observe(viewLifecycleOwner, {
+            if (it) {
                 binding.giveTVSecond.visibility = TextView.INVISIBLE
                 binding.getTV.visibility = TextView.INVISIBLE
                 binding.getTVSecond.visibility = TextView.VISIBLE
                 binding.giveTV.visibility = TextView.VISIBLE
-                addCardViewModel.onSwitchCheckedChange(true)
             } else {
                 binding.giveTVSecond.visibility = TextView.VISIBLE
                 binding.getTV.visibility = TextView.VISIBLE
                 binding.getTVSecond.visibility = TextView.INVISIBLE
                 binding.giveTV.visibility = TextView.INVISIBLE
+            }
+        })
+
+        binding.switchMaterial.setOnCheckedChangeListener { buttonView, isChecked ->
+            Constants.closeKeyboard(buttonView)
+            if (isChecked) {
+                addCardViewModel.onSwitchCheckedChange(true)
+            } else {
                 addCardViewModel.onSwitchCheckedChange(false)
             }
         }
@@ -100,7 +106,7 @@ class AddCardFragment : Fragment() {
         }
 
         binding.constLayout.setOnClickListener {
-            closeKeyboard(it)
+            Constants.closeKeyboard(it)
         }
 
         addCardViewModel.isDatePickerDialogShowing.observe(viewLifecycleOwner, {
@@ -131,15 +137,14 @@ class AddCardFragment : Fragment() {
                 if (
                         binding.nameInput.text.isEmpty() ||
                         binding.sumInput.text.isEmpty() ||
-                        binding.commentInput.text.isEmpty() ||
-                        dateChangingCheck()
+                        binding.commentInput.text.isEmpty()
                 ) {
                     Constants.showToast(requireContext(), R.string.toast)
                 } else {
                     addCardViewModel.onSaveClick()
                     NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
                 }
-                closeKeyboard(requireView())
+                Constants.closeKeyboard(requireView())
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -154,25 +159,9 @@ class AddCardFragment : Fragment() {
     private fun onClose() {
         binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
-            closeKeyboard(it)
+            Constants.closeKeyboard(it)
         }
 
-    }
-
-    private fun dateChangingCheck(): Boolean {
-        val futureDate = binding.date.text
-        val currentDate =
-                SimpleDateFormat("d MMMM yyyy", Locale.getDefault()).format(System.currentTimeMillis())
-        if (currentDate == futureDate) {
-            return true
-        }
-        return false
-    }
-
-    private fun closeKeyboard(view: View) {
-        val inputMethodManager =
-                view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     private fun showDatePikerDialog() {

@@ -20,7 +20,7 @@
     <string name="sum_hint">Сумма</string>
     <string name="comment_hint">Комментарий</string>
     <string name="date_title">планируемая дата возврата</string>
-    <string name="toast">Введите имя, сумму, оставте комментарий и измените дату</string>
+    <string name="toast">Введите имя, сумму и оставте комментарий</string>
     <!--    Currency-->
     <string-array name="currency">
         <item>RUB</item>

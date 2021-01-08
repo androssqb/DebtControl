@@ -49,16 +49,16 @@ class DebtListFragment : Fragment() {
         debtListViewModel.navigateToAddCardFragment.observe(viewLifecycleOwner, {
             if (it) {
                 findNavController().navigate(
-                        DebtListFragmentDirections.actionDebtListFragmentToAddCardFragment()
+                        DebtListFragmentDirections.actionDebtListFragmentToAddCardFragment(binding.viewPager.currentItem)
                 )
                 debtListViewModel.navigationDone()
             }
         })
 
+
         //UI customization
         initViewPager2WithFragments()
         setFAB()
-//        setUpTabs()
 
         return binding.root
     }

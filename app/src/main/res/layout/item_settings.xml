@@ -5,13 +5,21 @@
 
     <data>
 
+        <variable
+            name="settings"
+            type="com.example.debtcontrol.settings.model.Settings" />
+
+        <variable
+            name="clickListener"
+            type="com.example.debtcontrol.settings.adapter.SettingsListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="?attr/selectableItemBackground">
+        android:background="?attr/selectableItemBackground"
+        android:onClick="@{() -> clickListener.onClick(settings)}">
 
         <ImageView
             android:id="@+id/icon"
