@@ -1,5 +1,6 @@
 package com.example.debtcontrol.settings
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,14 +26,14 @@ class SettingsFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_settings,
-            container,
-            false
+                inflater,
+                R.layout.fragment_settings,
+                container,
+                false
         )
         setSettingsItem()
         (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar)
@@ -53,10 +54,16 @@ class SettingsFragment : Fragment() {
 //                        findNavController().navigate(SettingsFragmentDirections.actionSettingsFragmentToWebFragment(it))
 //                        settingsViewModel.onWebNavigated()
 //                    }
-//                    R.string.share -> {
-//                        findNavController().navigate(SettingsFragmentDirections.actionSettingsFragmentToWebFragment(it))
-//                        settingsViewModel.onWebNavigated()
-//                    }
+                    R.string.share -> {
+                        val intent = Intent().apply {
+                            action = Intent.ACTION_SEND
+                            putExtra(Intent.EXTRA_TEXT, getString(R.string.share_message))
+                            type = "text/plain"
+                        }
+                        if (intent.resolveActivity(requireActivity().packageManager) != null) {
+                            startActivity(intent)
+                        }
+                    }
                 }
             }
         })
@@ -67,9 +74,9 @@ class SettingsFragment : Fragment() {
     private fun setSettingsItem() {
         val myDataset = Datasource().loadSettings()
         binding.recyclerView.adapter = SettingsAdapter(requireContext(), myDataset,
-            SettingsListener { descResourceId ->
-                settingsViewModel.onSettingsCardClicked(descResourceId)
-            })
+                SettingsListener { descResourceId ->
+                    settingsViewModel.onSettingsCardClicked(descResourceId)
+                })
     }
 
     //Back button method
