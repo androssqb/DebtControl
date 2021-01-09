@@ -92,7 +92,7 @@ class SettingsFragment : Fragment() {
 
                 }
             } else {
-                Toast.makeText(activity, "Error", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
             }
         }
     }
