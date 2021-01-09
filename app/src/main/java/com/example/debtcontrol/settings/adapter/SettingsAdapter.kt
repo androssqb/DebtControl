@@ -23,18 +23,18 @@ class SettingsAdapter(private val clickListener: SettingsListener)
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-//        holder.binding.icon.setImageResource(data[position].iconResourceId)
-//        holder.binding.desc.text = context.resources.getString(data[position].descResourceId)
-        holder.binding.settings = data[position]
-        holder.binding.clickListener = clickListener
-        holder.binding.executePendingBindings()
+        holder.bind(data[position], clickListener)
     }
 
-    override fun getItemCount(): Int {
-        return data.size
-    }
+    override fun getItemCount(): Int = data.size
 
-    class ItemViewHolder(val binding: ItemSettingsBinding) : RecyclerView.ViewHolder(binding.root)
+    class ItemViewHolder(val binding: ItemSettingsBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: Settings, clickListener: SettingsListener) {
+            binding.settings = item
+            binding.clickListener = clickListener
+            binding.executePendingBindings()
+        }
+    }
 }
 
 class SettingsListener(val clickListener: (descResourceId: Int) -> Unit) {

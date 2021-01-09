@@ -19,25 +19,29 @@ import com.example.debtcontrol.settings.viewmodel.SettingsViewModel
 
 class SettingsFragment : Fragment() {
 
-    private lateinit var binding: FragmentSettingsBinding
-
-    private val settingsViewModel: SettingsViewModel by lazy {
-        ViewModelProvider(this).get(SettingsViewModel::class.java)
-    }
-
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(
+        val binding: FragmentSettingsBinding = DataBindingUtil.inflate(
                 inflater,
                 R.layout.fragment_settings,
                 container,
                 false
         )
-        setSettingsItem()
+
+        val settingsViewModel = ViewModelProvider(this).get(SettingsViewModel::class.java)
+
         (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar)
-        onBack()
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        val adapter = SettingsAdapter(SettingsListener { descResourceId ->
+            settingsViewModel.onSettingsCardClicked(descResourceId)
+        })
+        adapter.data = Datasource().loadSettings()
+        binding.recyclerView.adapter = adapter
 
         settingsViewModel.navigateToWeb.observe(viewLifecycleOwner, { settings ->
             settings?.let {
@@ -67,22 +71,7 @@ class SettingsFragment : Fragment() {
                 }
             }
         })
+
         return binding.root
-    }
-
-    //Сonnecting and displaying a list of settings
-    private fun setSettingsItem() {
-        val adapter = SettingsAdapter(SettingsListener { descResourceId ->
-            settingsViewModel.onSettingsCardClicked(descResourceId)
-        })
-        adapter.data = Datasource().loadSettings()
-        binding.recyclerView.adapter = adapter
-    }
-
-    //Back button method
-    private fun onBack() {
-        binding.toolbar.setNavigationOnClickListener {
-            findNavController().popBackStack()
-        }
     }
 }
