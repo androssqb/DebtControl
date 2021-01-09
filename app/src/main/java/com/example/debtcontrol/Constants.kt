@@ -15,7 +15,7 @@ object Constants {
     private const val SOFT_YELLOW: String = "#FFF9D96A"
     private const val STRONG_ORANGE: String = "#FFCA991A"
 
-    lateinit var toast: Toast
+    private lateinit var toast: Toast
 
     const val POLICY: String = "https://debt-control.flycricket.io/privacy.html"
     const val ABOUT: String = "https://debt-control.flycricket.io/terms.html"

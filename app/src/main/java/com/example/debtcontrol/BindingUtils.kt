@@ -5,6 +5,7 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.example.debtcontrol.database.Debt
 import com.example.debtcontrol.database.DebtHistory
+import com.example.debtcontrol.settings.model.Settings
 import com.google.android.material.appbar.MaterialToolbar
 import java.text.SimpleDateFormat
 import java.util.*
@@ -142,5 +143,19 @@ fun ImageView.setCurrencyHistory(item: DebtHistory?) {
 fun TextView.setDate(item: DebtHistory?) {
     item?.let {
         text = SimpleDateFormat("d MMMM yyyy", Locale.getDefault()).format(item.date)
+    }
+}
+
+@BindingAdapter("settingsIcon")
+fun ImageView.setIcon(item: Settings?){
+    item?.let {
+        setImageResource(item.iconResourceId)
+    }
+}
+
+@BindingAdapter("settingsDesc")
+fun TextView.setDesc(item: Settings?){
+    item?.let {
+        text = resources.getString(item.descResourceId)
     }
 }

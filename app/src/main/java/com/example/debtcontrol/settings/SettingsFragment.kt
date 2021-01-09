@@ -72,11 +72,11 @@ class SettingsFragment : Fragment() {
 
     //Сonnecting and displaying a list of settings
     private fun setSettingsItem() {
-        val myDataset = Datasource().loadSettings()
-        binding.recyclerView.adapter = SettingsAdapter(requireContext(), myDataset,
-                SettingsListener { descResourceId ->
-                    settingsViewModel.onSettingsCardClicked(descResourceId)
-                })
+        val adapter = SettingsAdapter(SettingsListener { descResourceId ->
+            settingsViewModel.onSettingsCardClicked(descResourceId)
+        })
+        adapter.data = Datasource().loadSettings()
+        binding.recyclerView.adapter = adapter
     }
 
     //Back button method
