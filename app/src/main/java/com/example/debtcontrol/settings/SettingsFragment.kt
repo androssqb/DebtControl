@@ -16,6 +16,7 @@ import com.example.debtcontrol.databinding.FragmentSettingsBinding
 import com.example.debtcontrol.settings.adapter.SettingsAdapter
 import com.example.debtcontrol.settings.adapter.SettingsListener
 import com.example.debtcontrol.settings.data.Datasource
+import com.example.debtcontrol.settings.model.AndroidConfig
 import com.example.debtcontrol.settings.viewmodel.SettingsViewModel
 import com.google.android.play.core.review.ReviewManagerFactory
 
@@ -57,7 +58,12 @@ class SettingsFragment : Fragment() {
                         settingsViewModel.settingsDone()
                     }
                     R.string.rate -> {
-                        requestReview(requireActivity() as AppCompatActivity)
+                        val applicationContext = context?.applicationContext
+                        val activity = activity
+                        if(applicationContext != null && activity != null) {
+                            val androidConfig = AndroidConfig(applicationContext, activity)
+                            requestReview(androidConfig)
+                        }
                         settingsViewModel.settingsDone()
                     }
                     R.string.share -> {
@@ -81,18 +87,18 @@ class SettingsFragment : Fragment() {
         }
     }
 
-    private fun requestReview(activity: AppCompatActivity) {
-        val manager = ReviewManagerFactory.create(activity)
+    private fun requestReview(androidConfig: AndroidConfig) {
+        val manager = ReviewManagerFactory.create(androidConfig.applicationContext)
         val request = manager.requestReviewFlow()
         request.addOnCompleteListener { request ->
             if (request.isSuccessful) {
                 val reviewInfo = request.result
-                val flow = manager.launchReviewFlow(activity, reviewInfo)
+                val flow = manager.launchReviewFlow(androidConfig.activity, reviewInfo)
                 flow.addOnCompleteListener {
-
+                    Toast.makeText(androidConfig.applicationContext, "In App Rating complete", Toast.LENGTH_LONG).show()
                 }
             } else {
-                Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                Toast.makeText(androidConfig.applicationContext, "In App Rating failure: requestReviewFlow", Toast.LENGTH_LONG).show()
             }
         }
     }
