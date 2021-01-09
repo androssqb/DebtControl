@@ -6,15 +6,15 @@ import androidx.lifecycle.ViewModel
 
 class SettingsViewModel : ViewModel() {
 
-    private val _navigateToWeb = MutableLiveData<Int>()
-    val navigateToWeb: LiveData<Int>
-        get() = _navigateToWeb
+    private val _settingsSelected = MutableLiveData<Int>()
+    val settingsSelected: LiveData<Int>
+        get() = _settingsSelected
 
     fun onSettingsCardClicked(descResourceId: Int) {
-        _navigateToWeb.value = descResourceId
+        _settingsSelected.value = descResourceId
     }
 
-    fun onWebNavigated() {
-        _navigateToWeb.value = null
+    fun settingsDone() {
+        _settingsSelected.value = null
     }
 }

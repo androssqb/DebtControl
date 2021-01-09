@@ -1,10 +1,12 @@
 package com.example.debtcontrol.settings
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -16,6 +18,7 @@ import com.example.debtcontrol.settings.adapter.SettingsAdapter
 import com.example.debtcontrol.settings.adapter.SettingsListener
 import com.example.debtcontrol.settings.data.Datasource
 import com.example.debtcontrol.settings.viewmodel.SettingsViewModel
+import com.google.android.play.core.review.ReviewManagerFactory
 
 class SettingsFragment : Fragment() {
 
@@ -43,29 +46,25 @@ class SettingsFragment : Fragment() {
         adapter.data = Datasource().loadSettings()
         binding.recyclerView.adapter = adapter
 
-        settingsViewModel.navigateToWeb.observe(viewLifecycleOwner, { settings ->
+        settingsViewModel.settingsSelected.observe(viewLifecycleOwner, { settings ->
             settings?.let {
                 when (it) {
                     R.string.policy -> {
                         findNavController().navigate(SettingsFragmentDirections.actionSettingsFragmentToWebFragment(it))
-                        settingsViewModel.onWebNavigated()
+                        settingsViewModel.settingsDone()
                     }
                     R.string.about -> {
                         findNavController().navigate(SettingsFragmentDirections.actionSettingsFragmentToWebFragment(it))
-                        settingsViewModel.onWebNavigated()
+                        settingsViewModel.settingsDone()
                     }
-//                    R.string.rate -> {
-//                        findNavController().navigate(SettingsFragmentDirections.actionSettingsFragmentToWebFragment(it))
-//                        settingsViewModel.onWebNavigated()
-//                    }
+                    R.string.rate -> {
+                        requestReview(requireActivity() as AppCompatActivity)
+                        settingsViewModel.settingsDone()
+                    }
                     R.string.share -> {
-                        val intent = Intent().apply {
-                            action = Intent.ACTION_SEND
-                            putExtra(Intent.EXTRA_TEXT, getString(R.string.share_message))
-                            type = "text/plain"
-                        }
-                        if (intent.resolveActivity(requireActivity().packageManager) != null) {
-                            startActivity(intent)
+                        if (getShareIntent().resolveActivity(requireActivity().packageManager) != null) {
+                            startActivity(getShareIntent())
+                            settingsViewModel.settingsDone()
                         }
                     }
                 }
@@ -73,5 +72,29 @@ class SettingsFragment : Fragment() {
         })
 
         return binding.root
+    }
+
+    private fun getShareIntent(): Intent {
+        return Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, getString(R.string.share_message))
+            type = "text/plain"
+        }
+    }
+
+    private fun requestReview(activity: Activity) {
+        val manager = ReviewManagerFactory.create(activity)
+        val request = manager.requestReviewFlow()
+        request.addOnCompleteListener { request ->
+            if (request.isSuccessful) {
+                val reviewInfo = request.result
+                val flow = manager.launchReviewFlow(activity, reviewInfo)
+                flow.addOnCompleteListener {
+
+                }
+            } else {
+                Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }
