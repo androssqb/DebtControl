@@ -1,6 +1,5 @@
 package com.example.debtcontrol.settings
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -82,7 +81,7 @@ class SettingsFragment : Fragment() {
         }
     }
 
-    private fun requestReview(activity: Activity) {
+    private fun requestReview(activity: AppCompatActivity) {
         val manager = ReviewManagerFactory.create(activity)
         val request = manager.requestReviewFlow()
         request.addOnCompleteListener { request ->
@@ -93,7 +92,7 @@ class SettingsFragment : Fragment() {
 
                 }
             } else {
-                Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Error", Toast.LENGTH_SHORT).show()
             }
         }
     }
